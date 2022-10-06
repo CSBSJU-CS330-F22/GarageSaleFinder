@@ -44,7 +44,7 @@ public class UserFuncController {
 
     public Arraylist<Post> searchByCategory(String category){
         if(category.equals(null)){
-            //figure out
+            //figure this out
         }
         else{
             return dbc.searchByCategory();

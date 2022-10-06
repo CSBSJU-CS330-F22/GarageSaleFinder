@@ -2,7 +2,7 @@ package things;
 
 /**
  * Abstract class for creating a post
- * @author ........
+ * @author .......
  * @version 9/29/2022
  */
 public abstract class Post {

@@ -32,7 +32,7 @@ public class DatabaseController {
      */
     public Arraylist<Post> getAllPosts(){
         new Arraylist<Post> allPosts;
-        //databse method to get a 2d array of sale data
+        //databse method to get a 2d array of sale data (once databse is setup)
         //iterate over data to create a arraylist of post objects
         return allPosts;
     }
