@@ -25,4 +25,29 @@ public class UserFuncController {
             dbc.addAccount(a); //not yet functional
         }
     }
+
+    /**
+     * Method for user to search garage sales by location
+     * @param city the city where the user wants to find garage sales
+     * @return 2d array containing the title of the sale, and username of the sale
+     * host for all sales in the city that is being searched
+     */
+    public Arraylist<Post> searchByLocation(String city){
+        if(city.equals(null)){
+           //figure out what to do if input is null
+        }
+        else{
+           return dbc.searchByLocation(city);
+        }
+
+    }
+
+    public Arraylist<Post> searchByCategory(String category){
+        if(category.equals(null)){
+            //figure out
+        }
+        else{
+            return dbc.searchByCategory();
+        }
+    }
 }

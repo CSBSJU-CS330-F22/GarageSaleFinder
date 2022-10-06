@@ -25,5 +25,35 @@ public class DatabaseController {
         return new User("This", "is", "temporary", "dummy", 'U', 'Y');
         //grab real account from database based on username
     }
+
+    /**
+     * method to get an array list of all post objects from the database
+     * @return array list of all post objects from the database
+     */
+    public Arraylist<Post> getAllPosts(){
+        new Arraylist<Post> allPosts;
+        //databse method to get a 2d array of sale data
+        //iterate over data to create a arraylist of post objects
+        return allPosts;
+    }
+    /**
+     * Method to find sales in the database that are in the city given by the user ***NOT HOOKED UP TO DATABASE***
+     * @param city the city where the user wants to find garage sales
+     * @return the post object
+     */
+    public ArrayList<Post> searchByLocation(String city){
+        new Arraylist<Post> allPosts = getAllPosts();//not yet working
+        new Arraylist<Post> matching;
+        int x == 0;
+        for(i = 0; i < allPosts.size(); i++){
+            if((allPosts.get(i).getLocation()).equals(city)){
+                matching.add(x, Post);
+                x++;
+            }
+        }
+
+        return matching;
+        //this method needs to be hooked up to the database
+    }
     
 }
