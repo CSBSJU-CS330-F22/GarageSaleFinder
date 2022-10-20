@@ -1,7 +1,6 @@
 package com.example.garagesalefinder.controllers;
 
 import android.content.ContentValues;
-import com.example.garagesalefinder.PostStuff.Post;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -17,6 +16,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.ResultSet;
+
 
 public class DataBaseHelperClass extends SQLiteOpenHelper {
     public Context context;
@@ -181,6 +181,57 @@ public class DataBaseHelperClass extends SQLiteOpenHelper {
         return access;
     }
 
+    /**
+     * method to search for posts within a certain location (city)
+     * @param location the location where the sales should be found
+     * @return an ArrayList of strings containing the titles of the posts that match the location being searched
+     */
+    public ArrayList<String> searchByLocation(String location){
+        ArrayList<String> results = new ArrayList<String>(0);
+        String[] args = {location};
+
+        String queryString = "SELECT post_name FROM sale_posts WHERE (sale_posts.sale_location = ?)";
+        Cursor cursor = sqliteDataBase.rawQuery(queryString, args);
+        System.out.println("cursor string: "+ cursor.moveToFirst());
+        int numResults = cursor.getCount();
+
+        if(numResults == 1){
+            System.out.println("We found 1 result matching the given location titled: " + cursor.getString(1));
+            results.add(cursor.getString(0));
+        }
+
+        else if (numResults >1){
+            System.out.println("We found " + cursor.getCount() + " results matching the given location");
+            results.add(cursor.getString(0));
+            int i = 0;
+            while(i<numResults){
+                System.out.println("cursor string: "+ cursor.moveToNext());
+                results.add(cursor.getString(0));
+                i++;
+            }
+        }
+        sqliteDataBase.close();
+        System.out.println(results);
+        return results;
+    }
+
+    /**
+     *
+     *
+     */
+    /**
+     public boolean addAccount(Account a) {
+     sqliteDataBase = this.getWritableDatabase();
+     String queryString = "INSERT INTO regular_user (fname, lname, username, password, activate) VALUES " +
+     "(" + "\""+a.getFirstName() +"\""+ ", " +"\""+ a.getLastName() +"\""+ ", " +"\""+ a.getUsername() +"\""+ ", "+"\""+ a.getPassword() +"\""+ ", " +"\'"+ 'Y'+"\')";
+     String queryString2 = "INSERT INTO regular_user" +" (" + a.getFirstName() + ", " + a.getLastName() + ", " + a.getUsername() + ", "+ a.getPassword() + ", " + 'Y'+")" +
+     " VALUES (fname, lname, username, password, activate)";
+     System.out.println(queryString);
+     Cursor cursor = sqliteDataBase.rawQuery(queryString, null);
+     sqliteDataBase.close();
+     return true;
+     }
+     */
 
     public boolean addAccount(Account student) {
         ContentValues values = new ContentValues();
@@ -194,32 +245,23 @@ public class DataBaseHelperClass extends SQLiteOpenHelper {
         db.close();
         return true;
     }
-
-
     /**
-     * Right now this method adds a post to the database
-     * but it doesn't add items or dates yet maybe add items should be it's own separate method
-     * since it has a lot of its own attributes
-     * @param post
-     * @return
+     public boolean addPost(Post student, int d, int i) {
+     ContentValues values = new ContentValues();
+     values.put("post_username", post.getFirstName());
+     values.put("post_name", post.getLastName());
+     values.put("sale_location", post.getUsername());
+     values.put("sale_description", post.getPassword());
+     values.put("sale_time", "Y");
+     values.put("price_range", student.getPassword());
+     values.put("image", "Y");
+     while()
+     SQLiteDatabase db = this.getWritableDatabase();
+     db.insert("regular_user", null, values);
+     db.close();
+     return true;
+     }
      */
-    public boolean addPost(Post post) {
-        ContentValues values = new ContentValues();
-        //getOwner() might be the wrong thing to call since we should just know the
-        //the right user based on who is loggedIn
-        //fix username!! we need a shared preference or something
-        values.put("post_username", "mShort");
-        values.put("post_name", post.getTitle());
-        values.put("sale_location", post.getLocation());
-        values.put("sale_description", post.getDescription());
-        values.put("sale_time", post.getTime());
-        values.put("price_range", post.getPriceRange());
-        values.put("image", post.getImage());
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.insert("sale_posts", null, values);
-        db.close();
-        return true;
-    }
 
     public void viewAccount(Account student){
         String queryString = "SELECT * from regular_user" +
